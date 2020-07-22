@@ -28,7 +28,6 @@ client.on('ready', () => {
 client.on('message', message => {
 
     contentsplit = message.content.split(' ')
-    code = ''
     for (x in contentsplit) {
         if (contentsplit[x].startsWith('https://discord.gift/')) {
             code = contentsplit[x].replace('https://discord.gift/', '')
