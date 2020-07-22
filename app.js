@@ -3,17 +3,21 @@ const config = require('./config.json')
 const request = require('request')
 const client = new Discord.Client()
 
+var contentsplit
+var code
+var x
+
 function redeemcode(code) {
     var options = {
-    'method': 'POST',
-    'url': 'https://ptb.discordapp.com/api/v6/entitlements/gift-codes/' + code + '/redeem',
-    'headers': {
-        'Authorization': config.token,
-    }
+        'method': 'POST',
+        'url': 'https://ptb.discordapp.com/api/v6/entitlements/gift-codes/' + code + '/redeem',
+        'headers': {
+            'Authorization': config.token,
+        }
     };
-    request(options, function (error, response) { 
-    if (error) throw new Error(error);
-       console.log(response.body + '\n');
+    request(options, function (error, response) {
+        if (error) throw new Error(error);
+        console.log(response.body + '\n');
     });
 }
 
@@ -23,16 +27,15 @@ client.on('ready', () => {
 
 client.on('message', message => {
 
-    var contentsplit = message.content.split(' ')
-    var code = ''
-    var x
-    for(x in contentsplit) {
-        if(contentsplit[x].startsWith('https://discord.gift/')) {
+    contentsplit = message.content.split(' ')
+    code = ''
+    for (x in contentsplit) {
+        if (contentsplit[x].startsWith('https://discord.gift/')) {
             code = contentsplit[x].replace('https://discord.gift/', '')
             console.log('\nServer: ' + message.guild.name + '\n' + 'Author: ' + message.author.username + '\n' + 'Channel: ' + message.channel.name + '\n' + 'Gift code: ' + code)
             redeemcode(code)
         }
-        else if(contentsplit[x].startsWith('discord.gift/')) {
+        else if (contentsplit[x].startsWith('discord.gift/')) {
             code = contentsplit[x].replace('discord.gift/', '')
             console.log('\nServer: ' + message.guild.name + '\n' + 'Author: ' + message.author.username + '\n' + 'Channel: ' + message.channel.name + '\n' + 'Gift code: ' + code)
             redeemcode(code)
