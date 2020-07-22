@@ -3,9 +3,7 @@ const config = require('./config.json')
 const request = require('request')
 const client = new Discord.Client()
 
-var contentsplit
-var code
-var x
+var urls = ['discord.gift/', 'discordapp.com/gifts/', 'discord.com/gifts/']
 
 function redeemcode(code) {
     var options = {
@@ -27,17 +25,14 @@ client.on('ready', () => {
 
 client.on('message', message => {
 
-    contentsplit = message.content.split(' ')
-    for (x in contentsplit) {
-        if (contentsplit[x].startsWith('https://discord.gift/')) {
-            code = contentsplit[x].replace('https://discord.gift/', '')
-            console.log('\nServer: ' + message.guild.name + '\n' + 'Author: ' + message.author.username + '\n' + 'Channel: ' + message.channel.name + '\n' + 'Gift code: ' + code)
-            redeemcode(code)
-        }
-        else if (contentsplit[x].startsWith('discord.gift/')) {
-            code = contentsplit[x].replace('discord.gift/', '')
-            console.log('\nServer: ' + message.guild.name + '\n' + 'Author: ' + message.author.username + '\n' + 'Channel: ' + message.channel.name + '\n' + 'Gift code: ' + code)
-            redeemcode(code)
+    var contentsplit = message.content.split(' ')
+    for (var x in contentsplit) {
+        for (var url in urls) {
+            if (contentsplit[x].replace('https://', '').replace('http://', '').startsWith(urls[url])) {
+                var code = contentsplit[x].replace(urls[url], '')
+                console.log('\nServer: ' + message.guild.name + '\n' + 'Author: ' + message.author.username + '\n' + 'Channel: ' + message.channel.name + '\n' + 'Gift code: ' + code)
+                redeemcode(code)
+            }
         }
     }
 })
