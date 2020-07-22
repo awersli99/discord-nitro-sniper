@@ -23,7 +23,7 @@ client.on('ready', () => {
 
 client.on('message', message => {
 
-    contentsplit = message.content.split(' ')
+    var contentsplit = message.content.split(' ')
     var code = ''
     var x
     for(x in contentsplit) {
