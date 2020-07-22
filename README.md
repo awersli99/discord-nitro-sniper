@@ -1,2 +1,2 @@
 # discord-nitro-sniper
-Redeem discord nitro gift codes before anybody else.
+Redeem discord nitro gift codes before anybody else, made in NodeJS.
