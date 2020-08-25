@@ -11,5 +11,5 @@ Replace "INSERT TOKEN" with your discord account token in config.json.
 
 ### Run
 ```
-node app.js
+node src/app.js
 ```
